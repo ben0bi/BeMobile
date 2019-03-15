@@ -12,6 +12,7 @@ public class CassaActivity extends AppCompatActivity {
 
     private MediaPlayer m_sound = null;
     private int m_actualSoundID = 0;
+    private boolean m_isTotal = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,9 @@ public class CassaActivity extends AppCompatActivity {
     // click on a number button.
     public void numberClick(View view)
     {
+        if(m_isTotal==true)
+            StaticValues.setCassaNumberString("");
+        m_isTotal = false;
         StaticValues.addCharsToCassaNumberString(view.getTag().toString());
         updateNumbers();
     }
@@ -37,13 +41,22 @@ public class CassaActivity extends AppCompatActivity {
     // click on the delete button.
     public void deleteClick(View view)
     {
-        StaticValues.removeLastCharFromCassaNumberString();
+        if(m_isTotal==true)
+            StaticValues.setCassaNumberString("");
+        else
+            StaticValues.removeLastCharFromCassaNumberString();
+        m_isTotal = false;
         updateNumbers();
     }
 
     // click on the ok button.
     public void okBtnClick(View view)
     {
+        if(m_isTotal == true || StaticValues.getCassaNumber() == 0)
+        {
+            StaticValues.playSound(this,R.raw.btn_no_action_done);
+            return;
+        }
         StaticValues.playSound(this, R.raw.cashregister_ok);
         StaticValues.addCassaToTotal();
         updateNumbers();
@@ -52,7 +65,16 @@ public class CassaActivity extends AppCompatActivity {
     // click on the total button.
     public void totalBtnClick(View view)
     {
+        if(m_isTotal == true || StaticValues.getCassaTotalNumber() == 0)
+        {
+            StaticValues.playSound(this,R.raw.btn_no_action_done);
+            return;
+        }
         StaticValues.playSound(this, R.raw.cashregister_total);
+        StaticValues.setCassaNumberString(StaticValues.getCassaTotalNumberString());
+        StaticValues.setCassaTotalNumberString("");
+        m_isTotal = true;
+        updateNumbers();
     }
 
     // update the number text views.
@@ -60,7 +82,12 @@ public class CassaActivity extends AppCompatActivity {
     {
         // set the text for the actual number.
         TextView t = (TextView) findViewById(R.id.text_actualNumber);
-        t.setText(getStrValueOf(StaticValues.getCassaNumberString()));
+
+        String pre = "";
+        if(m_isTotal)
+            pre="T: ";
+
+        t.setText(pre+getStrValueOf(StaticValues.getCassaNumberString()));
         // set the text for the subtotal number.
         TextView tt = (TextView) findViewById(R.id.text_totalNumber);
         tt.setText(getStrValueOf(StaticValues.getCassaTotalNumberString())+" +");

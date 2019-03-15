@@ -17,7 +17,8 @@
         </activity>
         <activity android:name=".CassaActivity"
             android:label="@string/cassaActivity_name"
-            android:parentActivityName=".MainWindow">
+            android:parentActivityName=".MainWindow"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.bbs.bemobile.MainWindow">

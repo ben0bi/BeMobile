@@ -8,6 +8,13 @@ public class StaticValues
     /* The number which is given in into the cassa activity input field. */
     private static String m_cassaNumberString = "";
     public static String getCassaNumberString() {return m_cassaNumberString;}
+    public static Long getCassaNumber()
+    {
+        if(m_cassaNumberString=="")
+            return new Long(0);
+        return Long.parseUnsignedLong(m_cassaNumberString);
+    }
+
     public static void setCassaNumberString(String newNumberString) {m_cassaNumberString=newNumberString;}
     public static void addCharsToCassaNumberString(String charsToAdd)
     {
@@ -31,14 +38,18 @@ public class StaticValues
 
     private static String m_totalNumberString="";
     public static String getCassaTotalNumberString() {return m_totalNumberString;}
-    public static void addCassaToTotal()
+    public static Long getCassaTotalNumber()
     {
         if(m_totalNumberString=="")
-            m_totalNumberString = "0";
-        if(m_cassaNumberString=="")
-            m_cassaNumberString="0";
-        Long t = Long.parseUnsignedLong(m_totalNumberString);
-        Long a = Long.parseUnsignedLong(m_cassaNumberString);
+            return new Long(0);
+        return Long.parseUnsignedLong(m_totalNumberString);
+    }
+
+    public static void setCassaTotalNumberString(String val) {m_totalNumberString=val;}
+    public static void addCassaToTotal()
+    {
+        Long t = StaticValues.getCassaTotalNumber();
+        Long a = StaticValues.getCassaNumber();
         Long newt = t + a;
         m_cassaNumberString = "";
         m_totalNumberString = String.valueOf(newt);
