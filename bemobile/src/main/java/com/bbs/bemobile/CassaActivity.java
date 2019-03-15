@@ -1,6 +1,6 @@
 package com.bbs.bemobile;
 
-//import android.hardware.Camera;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,41 +8,62 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class CassaActivity extends AppCompatActivity {
+
+    private MediaPlayer m_sound = null;
+    private int m_actualSoundID = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        m_sound = MediaPlayer.create(this, R.raw.cashregister_ok);
+        m_actualSoundID=R.raw.cashregister_ok;
+
         requestWindowFeature( Window.FEATURE_NO_TITLE );
 
         getWindow().setFlags( WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN );
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_cassa);
+        updateNumbers();
     }
 
-    String m_numberText = "";
-
+    // click on a number button.
     public void numberClick(View view)
     {
-        m_numberText+=view.getTag();
+        StaticValues.addCharsToCassaNumberString(view.getTag().toString());
         updateNumbers();
     }
 
+    // click on the delete button.
     public void deleteClick(View view)
     {
-        if(m_numberText.length()>1)
-            m_numberText=m_numberText.substring(0,m_numberText.length()-1);
-        else
-            m_numberText="";
+        StaticValues.removeLastCharFromCassaNumberString();
         updateNumbers();
     }
 
-    private void updateNumbers()
+    // click on the ok button.
+    public void okBtnClick(View view)
     {
-        TextView t = (TextView) findViewById(R.id.text_actualNumber);
-        t.setText(getStrValueOf(m_numberText));
+        StaticValues.playSound(this, R.raw.cashregister_ok);
     }
 
+    public void totalBtnClick(View view)
+    {
+        StaticValues.playSound(this, R.raw.cashregister_total);
+    }
+
+    // update the number text views.
+    private void updateNumbers()
+    {
+        // set the text for the actual number.
+        TextView t = (TextView) findViewById(R.id.text_actualNumber);
+        t.setText(getStrValueOf(StaticValues.getCassaNumberString()));
+        // set the text for the subtotal number.
+        TextView tt = (TextView) findViewById(R.id.text_totalNumber);
+        tt.setText(getStrValueOf(StaticValues.getCassaNumberString())+" +");
+    }
+
+    /* get the string value of another string with a point 0.0x, 0.xx and x.xx prefixing. */
     public String getStrValueOf(String integerText)
     {
         String result = "0.00";
