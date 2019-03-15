@@ -37,6 +37,7 @@ public class StaticValues
     }
 
     /* The total of the actual cassa bill item. */
+    public static boolean isShowingTotal = false;
 
     // the actual bill which is beeing processed.
     private static CCompleteBill m_actualBill = new CCompleteBill();

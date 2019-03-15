@@ -11,15 +11,9 @@ import android.widget.TextView;
 
 public class CassaActivity extends AppCompatActivity {
 
-    private MediaPlayer m_sound = null;
-    private int m_actualSoundID = 0;
-    private boolean m_isTotal = false;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        m_sound = MediaPlayer.create(this, R.raw.cashregister_ok);
-        m_actualSoundID=R.raw.cashregister_ok;
 
         requestWindowFeature( Window.FEATURE_NO_TITLE );
 
@@ -32,9 +26,9 @@ public class CassaActivity extends AppCompatActivity {
     // click on a number button.
     public void numberClick(View view)
     {
-        if(m_isTotal==true)
+        if(StaticValues.isShowingTotal==true)
             StaticValues.setCassaNumberString("");
-        m_isTotal = false;
+        StaticValues.isShowingTotal = false;
         StaticValues.addCharsToCassaNumberString(view.getTag().toString());
         updateNumbers();
     }
@@ -42,11 +36,11 @@ public class CassaActivity extends AppCompatActivity {
     // click on the delete button.
     public void deleteClick(View view)
     {
-        if(m_isTotal==true)
+        if(StaticValues.isShowingTotal==true)
             StaticValues.setCassaNumberString("");
         else
             StaticValues.removeLastCharFromCassaNumberString();
-        m_isTotal = false;
+        StaticValues.isShowingTotal = false;
         updateNumbers();
     }
 
@@ -54,7 +48,7 @@ public class CassaActivity extends AppCompatActivity {
     public void okBtnClick(View view)
     {
         // its the total or its a null entry.
-        if(m_isTotal == true || StaticValues.getCassaNumber() == 0)
+        if(StaticValues.isShowingTotal == true || StaticValues.getCassaNumber() == 0)
         {
             StaticValues.playSound(this,R.raw.btn_no_action_done);
             return;
@@ -69,7 +63,7 @@ public class CassaActivity extends AppCompatActivity {
     // click on the total button.
     public void totalBtnClick(View view)
     {
-        if(m_isTotal == true || StaticValues.getCassaTotalNumber() == 0)
+        if(StaticValues.isShowingTotal == true || StaticValues.getCassaTotalNumber() == 0)
         {
             StaticValues.playSound(this,R.raw.btn_no_action_done);
             return;
@@ -77,10 +71,8 @@ public class CassaActivity extends AppCompatActivity {
         StaticValues.playSound(this, R.raw.cashregister_total);
         StaticValues.setCassaNumberString(StaticValues.getCassaTotalNumberString());
 
-       StaticValues.createNewCassaBill();
-
-        //StaticValues.setCassaTotalNumberString("");
-        m_isTotal = true;
+        StaticValues.createNewCassaBill();
+        StaticValues.isShowingTotal = true;
         updateNumbers();
     }
 
@@ -90,7 +82,7 @@ public class CassaActivity extends AppCompatActivity {
         // set the text for the actual number.
         TextView t = (TextView) findViewById(R.id.text_actualNumber);
 
-        if(m_isTotal)
+        if(StaticValues.isShowingTotal)
             t.setTextColor(Color.BLUE);
         else
             t.setTextColor(Color.BLACK);
