@@ -1,5 +1,6 @@
 package com.bbs.bemobile;
 
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -52,11 +53,14 @@ public class CassaActivity extends AppCompatActivity {
     // click on the ok button.
     public void okBtnClick(View view)
     {
+        // its the total or its a null entry.
         if(m_isTotal == true || StaticValues.getCassaNumber() == 0)
         {
             StaticValues.playSound(this,R.raw.btn_no_action_done);
             return;
         }
+
+        // add the entry.
         StaticValues.playSound(this, R.raw.cashregister_ok);
         StaticValues.addCassaToTotal();
         updateNumbers();
@@ -72,7 +76,10 @@ public class CassaActivity extends AppCompatActivity {
         }
         StaticValues.playSound(this, R.raw.cashregister_total);
         StaticValues.setCassaNumberString(StaticValues.getCassaTotalNumberString());
-        StaticValues.setCassaTotalNumberString("");
+
+       StaticValues.createNewCassaBill();
+
+        //StaticValues.setCassaTotalNumberString("");
         m_isTotal = true;
         updateNumbers();
     }
@@ -83,11 +90,12 @@ public class CassaActivity extends AppCompatActivity {
         // set the text for the actual number.
         TextView t = (TextView) findViewById(R.id.text_actualNumber);
 
-        String pre = "";
         if(m_isTotal)
-            pre="T: ";
+            t.setTextColor(Color.BLUE);
+        else
+            t.setTextColor(Color.BLACK);
 
-        t.setText(pre+getStrValueOf(StaticValues.getCassaNumberString()));
+        t.setText(getStrValueOf(StaticValues.getCassaNumberString()));
         // set the text for the subtotal number.
         TextView tt = (TextView) findViewById(R.id.text_totalNumber);
         tt.setText(getStrValueOf(StaticValues.getCassaTotalNumberString())+" +");

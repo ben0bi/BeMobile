@@ -36,23 +36,19 @@ public class StaticValues
             m_cassaNumberString="";
     }
 
-    private static String m_totalNumberString="";
-    public static String getCassaTotalNumberString() {return m_totalNumberString;}
-    public static Long getCassaTotalNumber()
-    {
-        if(m_totalNumberString=="")
-            return new Long(0);
-        return Long.parseUnsignedLong(m_totalNumberString);
-    }
+    /* The total of the actual cassa bill item. */
 
-    public static void setCassaTotalNumberString(String val) {m_totalNumberString=val;}
+    // the actual bill which is beeing processed.
+    private static CCompleteBill m_actualBill = new CCompleteBill();
+    public static void createNewCassaBill() {m_actualBill = new CCompleteBill(); }
+
+    public static String getCassaTotalNumberString() {return Long.toString(m_actualBill.getTotal());}
+    public static Long getCassaTotalNumber() {return m_actualBill.getTotal();}
     public static void addCassaToTotal()
     {
-        Long t = StaticValues.getCassaTotalNumber();
         Long a = StaticValues.getCassaNumber();
-        Long newt = t + a;
+        m_actualBill.addItem(a);
         m_cassaNumberString = "";
-        m_totalNumberString = String.valueOf(newt);
     }
 
     // SOUND PLAYING FUNCTION.
