@@ -45,8 +45,11 @@ public class CassaActivity extends AppCompatActivity {
     public void okBtnClick(View view)
     {
         StaticValues.playSound(this, R.raw.cashregister_ok);
+        StaticValues.addCassaToTotal();
+        updateNumbers();
     }
 
+    // click on the total button.
     public void totalBtnClick(View view)
     {
         StaticValues.playSound(this, R.raw.cashregister_total);
@@ -60,7 +63,7 @@ public class CassaActivity extends AppCompatActivity {
         t.setText(getStrValueOf(StaticValues.getCassaNumberString()));
         // set the text for the subtotal number.
         TextView tt = (TextView) findViewById(R.id.text_totalNumber);
-        tt.setText(getStrValueOf(StaticValues.getCassaNumberString())+" +");
+        tt.setText(getStrValueOf(StaticValues.getCassaTotalNumberString())+" +");
     }
 
     /* get the string value of another string with a point 0.0x, 0.xx and x.xx prefixing. */

@@ -9,7 +9,18 @@ public class StaticValues
     private static String m_cassaNumberString = "";
     public static String getCassaNumberString() {return m_cassaNumberString;}
     public static void setCassaNumberString(String newNumberString) {m_cassaNumberString=newNumberString;}
-    public static void addCharsToCassaNumberString(String charsToAdd) {m_cassaNumberString+=charsToAdd;}
+    public static void addCharsToCassaNumberString(String charsToAdd)
+    {
+        // prevent 0 at start.
+        if(m_cassaNumberString.equals("") && (charsToAdd.equals("0") || charsToAdd.equals("00")))
+            return;
+        // prevent to long numbers.
+        if(m_cassaNumberString.length()>=10)
+            return;
+        m_cassaNumberString+=charsToAdd;
+    }
+
+    // delete a character.
     public static void removeLastCharFromCassaNumberString()
     {
         if(m_cassaNumberString.length()>1)
@@ -18,6 +29,22 @@ public class StaticValues
             m_cassaNumberString="";
     }
 
+    private static String m_totalNumberString="";
+    public static String getCassaTotalNumberString() {return m_totalNumberString;}
+    public static void addCassaToTotal()
+    {
+        if(m_totalNumberString=="")
+            m_totalNumberString = "0";
+        if(m_cassaNumberString=="")
+            m_cassaNumberString="0";
+        Long t = Long.parseUnsignedLong(m_totalNumberString);
+        Long a = Long.parseUnsignedLong(m_cassaNumberString);
+        Long newt = t + a;
+        m_cassaNumberString = "";
+        m_totalNumberString = String.valueOf(newt);
+    }
+
+    // SOUND PLAYING FUNCTION.
     private static MediaPlayer m_sound=null;
     private static int m_actualSoundID=0;
     public static void playSound(Context context, int soundId)
