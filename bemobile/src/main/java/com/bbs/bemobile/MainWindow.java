@@ -15,6 +15,7 @@ public class MainWindow extends AppCompatActivity {
 
     public void cassaClick(View view)
     {
+        StaticValues.playSound(this, R.raw.btn_tick);
         Intent in = new Intent(this, CassaActivity.class);
         startActivity(in);
     }

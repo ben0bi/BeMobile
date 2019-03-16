@@ -210,7 +210,7 @@
                 android:onClick="okBtnClick"
                 android:paddingTop="30dp"
                 android:paddingBottom="30dp"
-                android:text="OK" />
+                android:text="\u00A5\u20AC$" />
         </TableRow>
 
         <TableRow android:paddingTop="24dp">

@@ -29,7 +29,7 @@ public class CassaActivity extends AppCompatActivity {
         String tag = view.getTag().toString();
 
         // do not delete the total if it is a 0 value.
-        if((tag.equals("0") || tag.equals("00")) && StaticValues.isShowingTotal)
+        if((tag.equals("0") || tag.equals("00")) && (StaticValues.isShowingTotal || StaticValues.getCassaNumber()==0))
         {
             StaticValues.playSound(this,R.raw.btn_no_action_done);
             return;
@@ -46,8 +46,8 @@ public class CassaActivity extends AppCompatActivity {
     // click on the delete button.
     public void deleteClick(View view)
     {
-        // do not delete the total :)
-        if(StaticValues.isShowingTotal)
+        // do not delete the total :) and do not delete 0 values.
+        if(StaticValues.isShowingTotal || StaticValues.getCassaNumber() == 0)
         {
             StaticValues.playSound(this,R.raw.btn_no_action_done);
             return;
@@ -83,7 +83,7 @@ public class CassaActivity extends AppCompatActivity {
         // add the last value to the total if there is one.
         if(StaticValues.isShowingTotal==false && StaticValues.getCassaNumber() != 0)
             StaticValues.addCassaToTotal();
-        
+
         // do not make total if it is already a total or if the total amount is 0.
         if(StaticValues.isShowingTotal == true || StaticValues.getCassaTotalNumber() == 0)
         {
