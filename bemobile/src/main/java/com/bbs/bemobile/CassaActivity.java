@@ -26,16 +26,34 @@ public class CassaActivity extends AppCompatActivity {
     // click on a number button.
     public void numberClick(View view)
     {
+        String tag = view.getTag().toString();
+
+        // do not delete the total if it is a 0 value.
+        if((tag.equals("0") || tag.equals("00")) && StaticValues.isShowingTotal)
+        {
+            StaticValues.playSound(this,R.raw.btn_no_action_done);
+            return;
+        }
+
+        StaticValues.playSound(this,R.raw.btn_tick);
         if(StaticValues.isShowingTotal==true)
             StaticValues.setCassaNumberString("");
         StaticValues.isShowingTotal = false;
-        StaticValues.addCharsToCassaNumberString(view.getTag().toString());
+        StaticValues.addCharsToCassaNumberString(tag);
         updateNumbers();
     }
 
     // click on the delete button.
     public void deleteClick(View view)
     {
+        // do not delete the total :)
+        if(StaticValues.isShowingTotal)
+        {
+            StaticValues.playSound(this,R.raw.btn_no_action_done);
+            return;
+        }
+
+        StaticValues.playSound(this, R.raw.btn_tick);
         if(StaticValues.isShowingTotal==true)
             StaticValues.setCassaNumberString("");
         else
@@ -47,27 +65,32 @@ public class CassaActivity extends AppCompatActivity {
     // click on the ok button.
     public void okBtnClick(View view)
     {
-        // its the total or its a null entry.
+        // its the total or its a null entry. Do nothing then.
         if(StaticValues.isShowingTotal == true || StaticValues.getCassaNumber() == 0)
         {
             StaticValues.playSound(this,R.raw.btn_no_action_done);
             return;
         }
 
-        // add the entry.
         StaticValues.playSound(this, R.raw.cashregister_ok);
-        StaticValues.addCassaToTotal();
+        StaticValues.addCassaToTotal(); // add the entry.
         updateNumbers();
     }
 
     // click on the total button.
     public void totalBtnClick(View view)
     {
+        // add the last value to the total if there is one.
+        if(StaticValues.isShowingTotal==false && StaticValues.getCassaNumber() != 0)
+            StaticValues.addCassaToTotal();
+        
+        // do not make total if it is already a total or if the total amount is 0.
         if(StaticValues.isShowingTotal == true || StaticValues.getCassaTotalNumber() == 0)
         {
             StaticValues.playSound(this,R.raw.btn_no_action_done);
             return;
         }
+
         StaticValues.playSound(this, R.raw.cashregister_total);
         StaticValues.setCassaNumberString(StaticValues.getCassaTotalNumberString());
 
@@ -103,7 +126,7 @@ public class CassaActivity extends AppCompatActivity {
             result = "0."+integerText;
         if(integerText.length()>2)
         {
-            result=integerText.substring(0,integerText.length()-2)+"."+integerText.substring(integerText.length()-2,integerText.length());
+            result=integerText.substring(0,integerText.length()-2)+"."+integerText.substring(integerText.length()-2);
         }
         return result;
     }
