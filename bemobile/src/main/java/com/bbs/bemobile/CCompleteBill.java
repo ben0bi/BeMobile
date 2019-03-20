@@ -8,17 +8,6 @@ import java.util.List;
 // floating points are generated in text only.
 public class CCompleteBill
 {
-
-    public class CBillItem
-    {
-        protected Long m_value;
-        public Long getValue() {return m_value;}
-        CBillItem(Long val)
-        {
-            m_value=val;
-        }
-    }
-
     private Date m_date;
     private LinkedList<CBillItem> m_items;
     private String m_Standort;
@@ -43,4 +32,6 @@ public class CCompleteBill
         }
         return total;
     }
+
+    public int getItemCount() {return m_items.size();}
 }

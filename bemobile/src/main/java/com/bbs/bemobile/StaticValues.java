@@ -35,13 +35,17 @@ public class StaticValues
         else
             m_cassaNumberString="";
     }
-
+///////////////////////////////////////////////////////////////////////////////////////////////////
     /* The total of the actual cassa bill item. */
     public static boolean isShowingTotal = false;
 
     // the actual bill which is beeing processed.
     private static CCompleteBill m_actualBill = new CCompleteBill();
-    public static void createNewCassaBill() {m_actualBill = new CCompleteBill(); }
+    public static void createNewCassaBill()
+    {
+        // TODO: save the actual bill.
+        m_actualBill = new CCompleteBill();
+    }
 
     public static String getCassaTotalNumberString() {return Long.toString(m_actualBill.getTotal());}
     public static Long getCassaTotalNumber() {return m_actualBill.getTotal();}
@@ -52,6 +56,9 @@ public class StaticValues
         m_cassaNumberString = "";
     }
 
+    public static int getActualBillItemCount() {return m_actualBill.getItemCount();}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
     // SOUND PLAYING FUNCTION.
     private static MediaPlayer m_sound=null;
     private static int m_actualSoundID=0;

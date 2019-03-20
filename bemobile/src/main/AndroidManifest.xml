@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bbs.bemobile"
-    android:versionCode="0.0.1a"
+    android:versionCode="0.0.2a"
     android:versionName="Abasti">
 
     <application
@@ -11,20 +11,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".CassaList"
+            android:label="Actual Bill Entries"
+            android:parentActivityName=".CassaActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.bbs.bemobile.CassaActivity"></meta-data>
+        </activity>
         <activity android:name=".MainWindow">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CassaActivity"
+        <activity
+            android:name=".CassaActivity"
             android:label="@string/cassaActivity_name"
             android:parentActivityName=".MainWindow"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.bbs.bemobile.MainWindow">
-            </meta-data>
+                android:value="com.bbs.bemobile.MainWindow"></meta-data>
         </activity>
     </application>
 

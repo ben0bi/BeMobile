@@ -21,13 +21,14 @@
                 android:id="@+id/text_totalNumber"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif"
-                android:gravity="center"
+                android:gravity="end"
                 android:text="0.00"
                 android:textAlignment="textEnd"
                 android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small"
                 android:textSize="24sp"
                 android:maxLines = "1"
                 android:textStyle="bold"
+                android:onClick="showActualBillList"
                 android:typeface="monospace" />
         </TableRow>
 
@@ -38,7 +39,7 @@
                 android:id="@+id/text_actualNumber"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif"
-                android:gravity="center"
+                android:gravity="end"
                 android:text="0.00"
                 android:textAlignment="textEnd"
                 android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
@@ -59,7 +60,6 @@
         android:gravity="center"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp">
-
 
         <TableRow
             android:layout_width="match_parent"
@@ -204,7 +204,7 @@
 
             <Button
                 android:id="@+id/btn_ok_number"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:onClick="okBtnClick"
@@ -217,6 +217,7 @@
 
             <Button
                 android:id="@+id/btn_total"
+                android:layout_width="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:onClick="totalBtnClick"

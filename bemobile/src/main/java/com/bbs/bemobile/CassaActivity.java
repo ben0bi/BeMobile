@@ -1,5 +1,6 @@
 package com.bbs.bemobile;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
@@ -114,6 +115,21 @@ public class CassaActivity extends AppCompatActivity {
         // set the text for the subtotal number.
         TextView tt = (TextView) findViewById(R.id.text_totalNumber);
         tt.setText(getStrValueOf(StaticValues.getCassaTotalNumberString())+" +");
+    }
+
+    // click on the top number, shows list with all active bills.
+    public void showActualBillList(View v)
+    {
+        // don't show the list when there is nothing to show.
+        if(StaticValues.getActualBillItemCount()<=0)
+        {
+            StaticValues.playSound(this, R.raw.btn_no_action_done);
+            return;
+        }
+
+        StaticValues.playSound(this, R.raw.btn_tick);
+        Intent in = new Intent(this, CassaList.class);
+        startActivity(in);
     }
 
     /* get the string value of another string with a point 0.0x, 0.xx and x.xx prefixing. */
