@@ -3,6 +3,9 @@ package com.bbs.bemobile;
 import android.content.Context;
 import android.media.MediaPlayer;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class StaticValues
 {
     /* The number which is given in into the cassa activity input field. */
@@ -41,10 +44,22 @@ public class StaticValues
 
     // the actual bill which is beeing processed.
     private static CCompleteBill m_actualBill = new CCompleteBill();
+    private static LinkedList<CCompleteBill> m_billList = new LinkedList<CCompleteBill>();
+    public static LinkedList getBillList() {return m_billList;}
+
+    // create a new cassa bill and add the old one to the list.
     public static void createNewCassaBill()
     {
         // TODO: save the actual bill.
+        m_billList.add(m_actualBill);
+
         m_actualBill = new CCompleteBill();
+    }
+
+    // get the bill items of the actual bill.
+    public static List<CBillItem> getActualBillItems()
+    {
+        return m_actualBill.getItems();
     }
 
     public static String getCassaTotalNumberString() {return Long.toString(m_actualBill.getTotal());}

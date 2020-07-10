@@ -23,7 +23,13 @@ public class MainWindow extends AppCompatActivity {
 
     public void starforceClick(View view)
     {
-        goToUrl("http://starforce.masterbit.net");
+        goToUrl("https://benis-bastelschuppen.github.io");
+    }
+
+    public void cassaListClick(View view)
+    {
+        Intent in = new Intent(this, CassaList.class);
+        startActivity(in);
     }
 
     private void goToUrl (String url) {

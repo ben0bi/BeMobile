@@ -17,6 +17,8 @@ public class CCompleteBill
         m_items = new LinkedList<CBillItem>();
     }
 
+    public List<CBillItem> getItems() {return m_items;}
+
     public void addItem(Long value)
     {
         CBillItem i = new CBillItem(value);

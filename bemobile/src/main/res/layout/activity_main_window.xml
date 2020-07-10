@@ -7,19 +7,6 @@
     android:gravity="center_horizontal"
     tools:context=".MainWindow">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:gravity="center_horizontal"
-        android:autoLink="web"
-        android:text="https://benis-bastelschuppen.github.io"
-        android:textAlignment="center"
-        android:textColor="@color/colorAccent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="82dp" />
-
     <TableLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,7 +17,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         >
 
-    <TableRow
+        <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageButton
@@ -43,18 +30,33 @@
             tools:layout_editor_absoluteX="32dp"
             tools:layout_editor_absoluteY="68dp" />
     </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/imageButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="cassaListClick"
+                android:scaleType="center"
+                app:srcCompat="@drawable/corry" />
+
+        </TableRow>
+
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <ImageButton
-                android:id="@+id/imageButton"
+                android:id="@+id/imageButton2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="starforceClick"
                 android:scaleType="center"
-                app:srcCompat="@drawable/corry"
-                tools:layout_editor_absoluteX="32dp"
-                tools:layout_editor_absoluteY="68dp" />
+                app:srcCompat="@drawable/corry" />
+
         </TableRow>
     </TableLayout>
 

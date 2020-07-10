@@ -1,1 +1,1 @@
-include ':bemobile'
+include ':bemobile', ':testmodule'
