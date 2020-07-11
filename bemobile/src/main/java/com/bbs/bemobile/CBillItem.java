@@ -21,6 +21,7 @@ public class CBillItem
 
     public String getConvertedValue()
     {
-        return "not yet";
+        Double val = (double)this.getValue()*0.01;
+        return val.toString();
     }
 }
