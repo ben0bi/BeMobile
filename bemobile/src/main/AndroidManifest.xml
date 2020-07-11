@@ -11,13 +11,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CassaList"
+        <activity
+            android:name=".CassaList"
             android:label="Actual Bill Entries"
             android:parentActivityName=".CassaActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.bbs.bemobile.CassaActivity"></meta-data>
+                android:value="com.bbs.bemobile.CassaActivity" />
         </activity>
         <activity android:name=".MainWindow">
             <intent-filter>
@@ -33,7 +34,7 @@
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.bbs.bemobile.MainWindow"></meta-data>
+                android:value="com.bbs.bemobile.MainWindow" />
         </activity>
     </application>
 

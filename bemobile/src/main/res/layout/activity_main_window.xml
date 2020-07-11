@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/btn_mm_cassa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="cassaClick"
@@ -36,12 +36,12 @@
             android:layout_height="match_parent">
 
             <ImageButton
-                android:id="@+id/imageButton2"
+                android:id="@+id/btn_mm_billlist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="cassaListClick"
                 android:scaleType="center"
-                app:srcCompat="@drawable/corry" />
+                app:srcCompat="@drawable/aktenschrank" />
 
         </TableRow>
 
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content">
 
             <ImageButton
-                android:id="@+id/imageButton2"
+                android:id="@+id/btn_mm_starforce"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="starforceClick"

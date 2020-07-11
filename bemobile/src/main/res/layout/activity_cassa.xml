@@ -224,7 +224,7 @@
             android:paddingTop="24dp">
 
             <Button
-                android:id="@+id/btn_billList"
+                android:id="@+id/btn_total"
                 android:layout_width="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -232,12 +232,6 @@
                 android:paddingTop="40dp"
                 android:paddingBottom="40dp"
                 android:text="TOTAL" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="71dp"
-            android:paddingTop="24dp">
 
             <Button
                 android:id="@+id/btn_billList"
