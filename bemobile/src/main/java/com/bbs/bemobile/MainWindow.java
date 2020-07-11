@@ -29,14 +29,14 @@ public class MainWindow extends AppCompatActivity {
     public void cassaListClick(View view)
     {
         // don't show the list when there is nothing to show.
-        if(StaticValues.getActualBillItemCount()<=0)
+   /*     if(StaticValues.getActualBillItemCount()<=0)
         {
             StaticValues.playSound(this, R.raw.btn_no_action_done);
             return;
         }
-
+*/
         StaticValues.playSound(this, R.raw.btn_tick);
-        Intent in = new Intent(this, CassaList.class);
+        Intent in = new Intent(this, BillListActivity.class);
         startActivity(in);
     }
 
