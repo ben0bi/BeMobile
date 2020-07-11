@@ -11,11 +11,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".BillListActivity"></activity>
         <activity
-            android:name=".CassaBillListActk"
-            android:label="@string/title_activity_cassa_bill_list_actk"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:name=".BillListActivity"
+            android:label="Complete Bill List"
+            android:parentActivityName=".MainWindow"
+            android:screenOrientation="portrait"
+            >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.bbs.bemobile.MainWindow" />
+        </activity>
         <activity
             android:name=".CassaList"
             android:label="Actual Bill Entries"

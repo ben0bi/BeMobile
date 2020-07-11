@@ -17,7 +17,7 @@ public class MainWindow extends AppCompatActivity {
     public void cassaClick(View view)
     {
         StaticValues.playSound(this, R.raw.btn_tick);
-        Intent in = new Intent(this, CassaActivity.class);
+        Intent in = new Intent(MainWindow.this, CassaActivity.class);
         startActivity(in);
     }
 
@@ -36,7 +36,7 @@ public class MainWindow extends AppCompatActivity {
         }
 */
         StaticValues.playSound(this, R.raw.btn_tick);
-        Intent in = new Intent(this, BillListActivity.class);
+        Intent in = new Intent(MainWindow.this, BillListActivity.class);
         startActivity(in);
     }
 
