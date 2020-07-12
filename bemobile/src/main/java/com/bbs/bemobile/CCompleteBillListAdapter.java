@@ -45,8 +45,8 @@ public class CCompleteBillListAdapter extends BaseAdapter {
         }
 
         CCompleteBill bi =(CCompleteBill)this.getItem(position);
-        holder.itemNameView.setText("C");
-        holder.itemPriceView.setText(bi.getConvertedTotal());
+        holder.itemNameView.setText(bi.getDateString());
+        holder.itemPriceView.setText(StaticValues.getConvertedValue(bi.getTotal()));
 
         return convertView;
     }

@@ -47,7 +47,7 @@ public class CBillItemListAdapter extends BaseAdapter
 
         CBillItem bi =(CBillItem)this.getItem(position);
         holder.itemNameView.setText(bi.getName());
-        holder.itemPriceView.setText(bi.getConvertedValue());
+        holder.itemPriceView.setText(StaticValues.getConvertedValue(bi.getValue()));
 
         return convertView;
     }

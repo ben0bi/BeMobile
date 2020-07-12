@@ -28,7 +28,7 @@ public class CassaList extends AppCompatActivity {
                 AlertDialog.Builder adb=new AlertDialog.Builder(CassaList.this);
                 CBillItem bill=StaticValues.getActualBillItems().get(position);
                 adb.setTitle("Delete #"+(position+1)+"?");
-                adb.setMessage(bill.getName()+": "+bill.getConvertedValue());
+                adb.setMessage(bill.getName()+": "+StaticValues.getConvertedValue(bill.getValue()));
                 final int positionToRemove = position;
                 adb.setNegativeButton("NO", null);
                 adb.setPositiveButton("YES", new AlertDialog.OnClickListener() {

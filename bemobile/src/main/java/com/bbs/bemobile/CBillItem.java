@@ -19,9 +19,4 @@ public class CBillItem
     public Long getValue() {return m_value;}
     public String getName() {return m_name;}
 
-    public String getConvertedValue()
-    {
-        Double val = (double)this.getValue()*0.01;
-        return val.toString();
-    }
 }

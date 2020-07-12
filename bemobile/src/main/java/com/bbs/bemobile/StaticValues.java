@@ -3,6 +3,7 @@ package com.bbs.bemobile;
 import android.content.Context;
 import android.media.MediaPlayer;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -50,8 +51,12 @@ public class StaticValues
     // create a new cassa bill and add the old one to the list.
     public static void createNewCassaBill()
     {
-        // TODO: save the actual bill.
-        m_billList.add(m_actualBill);
+        // create the date now and set it.
+        m_actualBill.setDate(new Date());
+
+        // add the actual bill to the list.
+        if(m_actualBill.getItemCount()>0)
+            m_billList.add(m_actualBill);
 
         m_actualBill = new CCompleteBill();
     }
@@ -73,7 +78,15 @@ public class StaticValues
 
     public static int getActualBillItemCount() {return m_actualBill.getItemCount();}
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
+    // get the total with divider.
+    static public String getConvertedValue(Long value)
+    {
+        Double total = (double)(value*0.01);
+        return String.format("%.2f",total);
+    }
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////
     // SOUND PLAYING FUNCTION.
     private static MediaPlayer m_sound=null;
     private static int m_actualSoundID=0;

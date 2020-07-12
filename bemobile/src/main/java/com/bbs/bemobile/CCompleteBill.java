@@ -1,5 +1,6 @@
 package com.bbs.bemobile;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,6 +18,14 @@ public class CCompleteBill
         m_items = new LinkedList<CBillItem>();
     }
 
+    // date functions
+    public void setDate(Date d) {m_date=d;}
+    public Date getDate() {return m_date;}
+    public String getDateString()
+    {
+        SimpleDateFormat d = new SimpleDateFormat("dd.MM.yyyy @ HH:mm:ss");
+        return d.format(m_date);
+    }
     public List<CBillItem> getItems() {return m_items;}
 
     // add a bill item.
@@ -35,13 +44,6 @@ public class CCompleteBill
             total+=i.getValue();
         }
         return total;
-    }
-
-    // get the total with divider.
-    public String getConvertedTotal()
-    {
-        Double total = (double)(this.getTotal()*0.01);
-        return total.toString();
     }
 
     public int getItemCount() {return m_items.size();}
