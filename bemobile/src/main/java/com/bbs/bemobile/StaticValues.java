@@ -66,6 +66,7 @@ public class StaticValues
     {
         return m_actualBill.getItems();
     }
+    public static int getActualBillItemCount() {return m_actualBill.getItemCount();}
 
     public static String getCassaTotalNumberString() {return Long.toString(m_actualBill.getTotal());}
     public static Long getCassaTotalNumber() {return m_actualBill.getTotal();}
@@ -76,15 +77,12 @@ public class StaticValues
         m_cassaNumberString = "";
     }
 
-    public static int getActualBillItemCount() {return m_actualBill.getItemCount();}
-
     // get the total with divider.
     static public String getConvertedValue(Long value)
     {
         Double total = (double)(value*0.01);
         return String.format("%.2f",total);
     }
-
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////
     // SOUND PLAYING FUNCTION.
