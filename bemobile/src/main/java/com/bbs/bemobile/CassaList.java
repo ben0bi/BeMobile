@@ -8,8 +8,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 
 public class CassaList extends AppCompatActivity {
 
@@ -35,9 +38,29 @@ public class CassaList extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         StaticValues.getActualBillItems().remove(positionToRemove);
                         adapter.notifyDataSetChanged();
+                        setTotalToText();
                     }});
                 adb.show();
             }
         });
+
+        setTotalToText();
+    }
+
+    // combine all bills and show that value.
+    protected void setTotalToText()
+    {
+        TextView t = (TextView)findViewById(R.id.cassalist_totalText);
+        Long total = (long)0;
+
+        List<CBillItem> list = StaticValues.getActualBillItems();
+        ListIterator<CBillItem> listIterator = list.listIterator();
+        while (listIterator.hasNext())
+        {
+            CBillItem b = listIterator.next();
+            total+=b.getValue();
+        }
+
+        t.setText("= "+StaticValues.getConvertedValue(total));
     }
 }

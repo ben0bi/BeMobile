@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 public class MainWindow extends AppCompatActivity {
@@ -12,8 +13,10 @@ public class MainWindow extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_window);
+        Log.d("MAIN", "Welcome to BeMobile");
     }
 
+    // click on the cassa button
     public void cassaClick(View view)
     {
         StaticValues.playSound(this, R.raw.btn_tick);
@@ -21,11 +24,13 @@ public class MainWindow extends AppCompatActivity {
         startActivity(in);
     }
 
+    // click on the link button
     public void starforceClick(View view)
     {
         goToUrl("https://benis-bastelschuppen.github.io");
     }
 
+    // click on the complete bill button.
     public void cassaListClick(View view)
     {
         // don't show the list when there is nothing to show.
