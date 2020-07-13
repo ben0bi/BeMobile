@@ -19,6 +19,9 @@ public class BillListActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_bill_list);
 
+        // load the list from the file
+        StaticValues.readBillFile(BillListActivity.this);
+
         // load the list in.
         ListView list = (ListView)findViewById(R.id.listview_billlist);
         final CCompleteBillListAdapter adapter = new CCompleteBillListAdapter(getApplicationContext(), StaticValues.getCompleteBillList());

@@ -2,7 +2,17 @@ package com.bbs.bemobile;
 
 import android.content.Context;
 import android.media.MediaPlayer;
+import android.os.Environment;
+import android.util.Log;
+import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -82,6 +92,59 @@ public class StaticValues
     {
         Double total = (double)(value*0.01);
         return String.format("%.2f",total);
+    }
+
+    // read the complete bills from file.
+    public static void readBillFile(Context context) {
+        try {
+            String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/beMobile/";
+            FileInputStream fileInputStream= new FileInputStream(new File(path+"billList.bem"));
+            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            StringBuffer stringBuffer = new StringBuffer();
+            String lines;
+            while ((lines=bufferedReader.readLine())!=null) {
+                stringBuffer.append(lines+"\n");
+            }
+            fileInputStream.close();
+
+            // TODO: readin bill file from stringbuffer here.
+            m_billList.clear();
+            Log.d("FILES", stringBuffer.toString());
+
+        } catch (FileNotFoundException e) {
+            Toast.makeText(context,"File does not exist yet!",Toast.LENGTH_LONG).show();
+            Log.d("FILES", "Could not load file billList.bem");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    // write the complete bills to file.
+    public static void writeBillFile(Context context)
+    {
+        // TODO: save to path that's working
+       /* try {
+            String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/beMobile/";
+            new File(path  ).mkdir();
+            File file = new File(path+"billList.bem");
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            FileOutputStream fileOutputStream = new FileOutputStream(file,false);
+
+            fileOutputStream.write(("Holla" + System.getProperty("line.separator")).getBytes());
+            fileOutputStream.close();
+
+        }  catch(FileNotFoundException ex) {
+            Log.d("FILES","File could not be created.");
+        }  catch(IOException ex) {
+            ex.printStackTrace();
+        }
+        */
+        // TODO: write to bill file.
+        Toast.makeText(context, "File not yet saved!", Toast.LENGTH_SHORT).show();
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////
