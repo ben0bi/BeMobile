@@ -14,6 +14,7 @@ public class MainWindow extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_window);
         Log.d("MAIN", "Welcome to BeMobile");
+        StaticValues.readBillFile(this.getApplicationContext());
     }
 
     // click on the cassa button

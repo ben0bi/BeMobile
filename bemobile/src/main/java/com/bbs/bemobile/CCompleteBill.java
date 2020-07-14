@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 
 // bill works with long integers.
 // floating points are generated in text only.
@@ -32,6 +33,7 @@ public class CCompleteBill
         return d.format(m_date);
     }
     public List<CBillItem> getItems() {return m_items;}
+    public int getItemCount() {return m_items.size();}
 
     // add a bill item.
     public void addItem(Long value)
@@ -55,9 +57,25 @@ public class CCompleteBill
     public void readFromFile(BufferedReader r)
     {
         try {
+            // read date
             String line = r.readLine();
             this.setDate(new Date(line));
+            // read item count.
+            line = r.readLine();
+            int count = Integer.parseInt(line);
+            m_items = new LinkedList<CBillItem>();
+            for(int i=0;i<count;i++)
+            {
+                // read value
+                line = r.readLine();
+                Long value = Long.parseLong(line);
+                CBillItem b=new CBillItem(value);
+
+                m_items.add(b);
+            }
+
         } catch(IOException ex) {
+            Log.d("FILES", "Error reading a CompleteBill.");
             ex.printStackTrace();
         }
     }
@@ -70,10 +88,18 @@ public class CCompleteBill
             Log.d("FILES", "Writing date: "+this.getDate().toString());
             // write date.
             f.write((this.getDate().toString() + br).getBytes());
+            Integer c =(Integer)this.getItemCount();
+            // write item count.
+            f.write((c.toString()+br).getBytes());
+            // write items
+            ListIterator<CBillItem> listIterator =m_items.listIterator();
+            while (listIterator.hasNext()) {
+                CBillItem i = listIterator.next();
+                // write item value
+                f.write((i.getValue().toString()+br).getBytes());
+            }
         } catch(IOException ex) {
             Log.d("FILES", "Could not write date.");
         }
     }
-
-    public int getItemCount() {return m_items.size();}
 }

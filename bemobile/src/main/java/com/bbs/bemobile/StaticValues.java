@@ -182,8 +182,10 @@ public class StaticValues
                 String br = System.getProperty("line.separator");
                 Log.d("FILES", "(SAVE) Bill list count: "+count.toString());
               //  fileOutputStream.write(("bem_bills\n").getBytes());
+
+                // write the count of bills
                 fileOutputStream.write((count.toString()+br).getBytes());
-                // todo: go through each bill and write them values.
+                // go through each bill and write the values.
                 ListIterator<CCompleteBill> listIterator2 = bills.listIterator();
                 while (listIterator2.hasNext()) {
                     CCompleteBill b = listIterator2.next();
