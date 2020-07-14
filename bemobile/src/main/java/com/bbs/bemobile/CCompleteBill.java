@@ -1,5 +1,10 @@
 package com.bbs.bemobile;
 
+import android.util.Log;
+
+import java.io.BufferedReader;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
@@ -44,6 +49,30 @@ public class CCompleteBill
             total+=i.getValue();
         }
         return total;
+    }
+
+    // read all data from a file
+    public void readFromFile(BufferedReader r)
+    {
+        try {
+            String line = r.readLine();
+            this.setDate(new Date(line));
+        } catch(IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    // write all data to a file.
+    public void writeToFile(FileOutputStream f)
+    {
+        String br = System.getProperty("line.separator");
+        try {
+            Log.d("FILES", "Writing date: "+this.getDate().toString());
+            // write date.
+            f.write((this.getDate().toString() + br).getBytes());
+        } catch(IOException ex) {
+            Log.d("FILES", "Could not write date.");
+        }
     }
 
     public int getItemCount() {return m_items.size();}

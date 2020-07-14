@@ -21,6 +21,7 @@ import java.io.InputStreamReader;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 
 public class StaticValues
 {
@@ -106,16 +107,28 @@ public class StaticValues
             FileInputStream fileInputStream= new FileInputStream(new File(path+"billList.bem"));
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-            StringBuffer stringBuffer = new StringBuffer();
-            String lines;
-            while ((lines=bufferedReader.readLine())!=null) {
-                stringBuffer.append(lines+"\n");
+           // StringBuffer stringBuffer = new StringBuffer();
+            String line;
+
+            Integer billcount = 0;
+
+            // readin the data line by line
+            line = bufferedReader.readLine();
+            // 2. bill count.
+            billcount = Integer.parseInt(line);
+            Log.d("FILES", "(READ) Bill Count: "+billcount.toString());
+
+            m_billList.clear();
+
+            // readin data
+            for(int i=0;i<billcount;i++)
+            {
+                CCompleteBill bill = new CCompleteBill();
+                // readin data
+                bill.readFromFile(bufferedReader);
+                m_billList.add(bill);
             }
             fileInputStream.close();
-
-            // TODO: readin bill file from stringbuffer here.
-            m_billList.clear();
-            Log.d("FILES", stringBuffer.toString());
 
         } catch (FileNotFoundException e) {
             Toast.makeText(context,"File does not exist yet!",Toast.LENGTH_LONG).show();
@@ -125,6 +138,7 @@ public class StaticValues
         }
     }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // write the complete bills to file.
     final static int PERMISSION_CODE_WRITE_EXTERNAL_FILES = 100;
@@ -136,7 +150,8 @@ public class StaticValues
         if (ContextCompat.checkSelfPermission(
                 context, Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
                 PackageManager.PERMISSION_DENIED) {
-            Log.d("FILES","Write permission DENIED");
+            Log.d("FILES","Write permission DENIED, asking for permission.");
+            Toast.makeText(context, "Please click YES to save your data.",Toast.LENGTH_LONG);
             ActivityCompat.requestPermissions(activity,
                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     PERMISSION_CODE_WRITE_EXTERNAL_FILES);
@@ -156,19 +171,36 @@ public class StaticValues
                     file.createNewFile();
                 }
                 FileOutputStream fileOutputStream = new FileOutputStream(file,false);
-                // TODO: write the file right here
-                fileOutputStream.write(("Holla" + System.getProperty("line.separator")).getBytes());
+                LinkedList<CCompleteBill> bills = StaticValues.getCompleteBillList();
+
+                Integer count = 0;
+                ListIterator<CCompleteBill> listIterator = bills.listIterator();
+                while (listIterator.hasNext()) {
+                    CCompleteBill b = listIterator.next();
+                    count++;
+                }
+                String br = System.getProperty("line.separator");
+                Log.d("FILES", "(SAVE) Bill list count: "+count.toString());
+              //  fileOutputStream.write(("bem_bills\n").getBytes());
+                fileOutputStream.write((count.toString()+br).getBytes());
+                // todo: go through each bill and write them values.
+                ListIterator<CCompleteBill> listIterator2 = bills.listIterator();
+                while (listIterator2.hasNext()) {
+                    CCompleteBill b = listIterator2.next();
+                    b.writeToFile(fileOutputStream);
+                    count++;
+                }
                 fileOutputStream.close();
 
             }  catch(FileNotFoundException ex) {
-                Log.d("FILES","File could not be created.");
+                Log.d("FILES","(SAVE) File could not be created.");
             }  catch(IOException ex) {
-                Toast.makeText(context, "IOException, call the developer!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "(SAVE) IOException, set write permission!", Toast.LENGTH_SHORT).show();
                 Log.d("FILES", "IOException:" + path);
                 ex.printStackTrace();
             }
         }else{
-                Toast.makeText(context, "Not saved: You have given no write permission.",Toast.LENGTH_LONG);
+                Toast.makeText(context, "Not saved: You have not given a write permission.",Toast.LENGTH_LONG);
                 Log.d("FILES", "Write permission DENIED (2)");
         }
     }
