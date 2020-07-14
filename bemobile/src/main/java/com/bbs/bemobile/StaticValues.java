@@ -1,8 +1,13 @@
 package com.bbs.bemobile;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -96,8 +101,8 @@ public class StaticValues
 
     // read the complete bills from file.
     public static void readBillFile(Context context) {
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/beMobile/";
         try {
-            String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/beMobile/";
             FileInputStream fileInputStream= new FileInputStream(new File(path+"billList.bem"));
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
@@ -122,29 +127,50 @@ public class StaticValues
 
 
     // write the complete bills to file.
-    public static void writeBillFile(Context context)
+    final static int PERMISSION_CODE_WRITE_EXTERNAL_FILES = 100;
+    public static void writeBillFile(Context context, Activity activity)
     {
-        // TODO: save to path that's working
-       /* try {
-            String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/beMobile/";
-            new File(path  ).mkdir();
-            File file = new File(path+"billList.bem");
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            FileOutputStream fileOutputStream = new FileOutputStream(file,false);
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/beMobile/";
 
-            fileOutputStream.write(("Holla" + System.getProperty("line.separator")).getBytes());
-            fileOutputStream.close();
-
-        }  catch(FileNotFoundException ex) {
-            Log.d("FILES","File could not be created.");
-        }  catch(IOException ex) {
-            ex.printStackTrace();
+        // get permission
+        if (ContextCompat.checkSelfPermission(
+                context, Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
+                PackageManager.PERMISSION_DENIED) {
+            Log.d("FILES","Write permission DENIED");
+            ActivityCompat.requestPermissions(activity,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    PERMISSION_CODE_WRITE_EXTERNAL_FILES);
+        }else{
+            Log.d("FILES","Write permission GRANTED");
         }
-        */
-        // TODO: write to bill file.
-        Toast.makeText(context, "File not yet saved!", Toast.LENGTH_SHORT).show();
+
+        // save to file
+        if (ContextCompat.checkSelfPermission(
+                context, Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
+                PackageManager.PERMISSION_GRANTED)
+        {
+            try {
+                new File(path  ).mkdir();
+                File file = new File(path+"billList.bem");
+                if (!file.exists()) {
+                    file.createNewFile();
+                }
+                FileOutputStream fileOutputStream = new FileOutputStream(file,false);
+                // TODO: write the file right here
+                fileOutputStream.write(("Holla" + System.getProperty("line.separator")).getBytes());
+                fileOutputStream.close();
+
+            }  catch(FileNotFoundException ex) {
+                Log.d("FILES","File could not be created.");
+            }  catch(IOException ex) {
+                Toast.makeText(context, "IOException, call the developer!", Toast.LENGTH_SHORT).show();
+                Log.d("FILES", "IOException:" + path);
+                ex.printStackTrace();
+            }
+        }else{
+                Toast.makeText(context, "Not saved: You have given no write permission.",Toast.LENGTH_LONG);
+                Log.d("FILES", "Write permission DENIED (2)");
+        }
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////

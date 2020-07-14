@@ -100,7 +100,7 @@ public class CassaActivity extends AppCompatActivity {
         updateNumbers();
 
         // write the bill file.
-        StaticValues.writeBillFile(CassaActivity.this);
+        StaticValues.writeBillFile(CassaActivity.this, this);
     }
 
     // update the number text views.
