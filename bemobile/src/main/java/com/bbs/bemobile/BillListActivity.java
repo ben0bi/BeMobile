@@ -1,10 +1,14 @@
 package com.bbs.bemobile;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -26,6 +30,25 @@ public class BillListActivity extends AppCompatActivity {
         ListView list = (ListView)findViewById(R.id.listview_billlist);
         final CCompleteBillListAdapter adapter = new CCompleteBillListAdapter(getApplicationContext(), StaticValues.getCompleteBillList());
         list.setAdapter(adapter);
+
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+                AlertDialog.Builder adb=new AlertDialog.Builder(BillListActivity.this);
+                CCompleteBill bill=StaticValues.getCompleteBillList().get(position);
+                adb.setTitle("Delete #"+(position+1)+"?");
+                adb.setMessage(bill.getDate()+": "+StaticValues.getConvertedValue(bill.getTotal()));
+                final int positionToRemove = position;
+                adb.setNegativeButton("NO", null);
+                adb.setPositiveButton("YES", new AlertDialog.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        StaticValues.getCompleteBillList().remove(positionToRemove);
+                        adapter.notifyDataSetChanged();
+                        setTotalToText();
+                        StaticValues.writeBillFile(BillListActivity.this,BillListActivity.this);
+                    }});
+                adb.show();
+            }
+        });
 
         // set the total
         setTotalToText();

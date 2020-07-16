@@ -62,7 +62,7 @@ public class StaticValues
     // the actual bill which is beeing processed.
     private static CCompleteBill m_actualBill = new CCompleteBill();
     private static LinkedList<CCompleteBill> m_billList = new LinkedList<CCompleteBill>();
-    public static LinkedList getCompleteBillList() {return m_billList;}
+    public static LinkedList<CCompleteBill> getCompleteBillList() {return m_billList;}
 
     // create a new cassa bill and add the old one to the list.
     public static void createNewCassaBill()
