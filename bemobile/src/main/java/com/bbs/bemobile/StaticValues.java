@@ -135,6 +135,11 @@ public class StaticValues
             Log.d("FILES", "Could not load file billList.bem");
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (Exception e)
+        {
+            Toast.makeText(context,"Unknown exception, maybe wrong file format.", Toast.LENGTH_LONG);
+            Log.d("FILES", "Illegal file format.");
+            e.printStackTrace();
         }
     }
 

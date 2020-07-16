@@ -69,8 +69,13 @@ public class CCompleteBill
                 // read value
                 line = r.readLine();
                 Long value = Long.parseLong(line);
-                CBillItem b=new CBillItem(value);
 
+                // read name
+                line = r.readLine();
+
+                // create bill and add it.
+                CBillItem b=new CBillItem(value);
+                b.init(line, value);
                 m_items.add(b);
             }
 
@@ -97,6 +102,10 @@ public class CCompleteBill
                 CBillItem i = listIterator.next();
                 // write item value
                 f.write((i.getValue().toString()+br).getBytes());
+                // write item name, first remove all enters.
+                String name = i.getName().replaceAll("\n","");
+                name.replaceAll(br,"");
+                f.write((name+br).getBytes());
             }
         } catch(IOException ex) {
             Log.d("FILES", "Could not write date.");
